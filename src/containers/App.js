@@ -20,14 +20,16 @@ class App extends Component {
     }
 
     onSearchChange = (event) => {
-        this.setState({ searchfeild: event.target.value})
-        
+        this.setState({ searchfeild: event.target.value});
     }
 
     render() {
         const {robots, searchfeild} = this.state;
-        const filteredRobots = robots.filter(robot => {
-            return robot.name.toLocaleLowerCase().includes(searchfeild.toLocaleLowerCase());
+        const filteredRobots =  robots.filter(robot => {
+            const filteredNames = robot.name.toLocaleLowerCase().includes(searchfeild.toLocaleLowerCase());
+            const filteredEmails = robot.email.toLocaleLowerCase().includes(searchfeild.toLocaleLowerCase());
+            const finalFilter = filteredEmails + filteredNames;
+            return finalFilter;
         });
         if (!robots.length) {
             return <h1 className="tc">Loading</h1>
